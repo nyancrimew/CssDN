@@ -1,0 +1,28 @@
+{
+  "name": "cssdn",
+  "version": "1.0.0",
+  "description": "CDN for often used css / js frameworks like github-light.css or others, minified and built daily",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Deletescape-Media/CssDN.git"
+  },
+  "keywords": [
+    "css",
+    "cdn",
+    "js",
+    "deletescape"
+  ],
+  "author": "deletescape",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Deletescape-Media/CssDN/issues"
+  },
+  "homepage": "https://github.com/Deletescape-Media/CssDN#readme",
+  "dependencies": {
+    "minifier": "^0.8.0"
+  }
+}
