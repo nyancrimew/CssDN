@@ -5,7 +5,9 @@ mkdir build/out
 mkdir build/out/js
 mkdir build/out/css
 
+mv build/*.js build/out/js
 mv build/**/*.js build/out/js
+mv build/*.css build/out/css
 mv build/**/*.css build/out/css
 echo
 
