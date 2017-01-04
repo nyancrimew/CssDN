@@ -9,6 +9,10 @@ mv build/*.js build/out/js
 mv build/**/*.js build/out/js
 mv build/*.css build/out/css
 mv build/**/*.css build/out/css
+cp libs/*.js build/out/js
+cp libs/**/*.js build/out/js
+cp libs/*.css build/out/css
+cp libs/**/*.css build/out/css
 echo
 
 echo Minification
