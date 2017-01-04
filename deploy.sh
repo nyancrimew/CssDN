@@ -6,10 +6,8 @@ if [${TRAVIS_EVENT_TYPE} = "cron"]
 then
 COMMIT_MSG="$(date -u)"
 else
-COMMIT_MSG=$(cat << EOF
-$(git log -${TRAVIS_COMMIT_RANGE} --oneline)
-EOF
-)
+git log -${TRAVIS_COMMIT_RANGE} --oneline>>commit_msg
+COMMIT_MSG="$(cat commit_msg)"
 fi
 echo "Commit message was set to: ${COMMIT_MSG}"
 
