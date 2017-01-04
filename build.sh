@@ -39,5 +39,18 @@ cp normalize.css ../../build
 cd ../..
 
 echo
+echo Cloning jquery
+echo
+git clone --depth=1 --branch=master https://github.com/jquery/jquery.git repos/jquery && cd repos/jquery
+echo
+echo Building jquery
+echo
+npm run build
+echo
+echo Copying artifacts to output directory
+cp dist/jquery.js ../../build
+cd ../..
+
+echo
 echo Deploying to gh-pages branch
 ./deploy.sh
