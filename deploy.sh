@@ -8,6 +8,7 @@ export COMMIT_MSG="$(date -u)"
 else
 export COMMIT_MSG="$(git log -n ${TRAVIS_COMMIT_RANGE} --oneline)"
 fi
+echo Commit message was set to: ${COMMIT_MSG}
 
 echo
 echo Moving files into the right folders
@@ -53,12 +54,7 @@ cp -r ../build/out/css css
 
 echo Commit with git
 git add .
-
-
-git commit -m
-else
 git commit -m"${COMMIT_MSG}"
-fi
 
 echo Deploy
 git push --quiet
