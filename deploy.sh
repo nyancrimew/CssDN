@@ -30,6 +30,7 @@ echo
 echo Git config
 git config user.name "deletescape"
 git config user.email "deletescape@outlook.com"
+git config --global push.default simple
 
 echo
 echo Delete old artifacts
