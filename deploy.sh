@@ -2,7 +2,7 @@
 
 echo Preparing commit message
 echo
-if ["${TRAVIS_EVENT_TYPE}" = "cron"]
+if [$TRAVIS_EVENT_TYPE -eq "cron"]
 then
 echo "Daily build - $(date -u)">>commit_msg
 else
