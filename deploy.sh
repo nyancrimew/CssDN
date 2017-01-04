@@ -8,8 +8,7 @@ echo "Daily build - $(date -u)">>commit_msg
 else
 git log -3 --oneline>>commit_msg
 fi
-echo "Commit message was set to:"
-cat commit_msg
+echo "Commit message was set to:" && cat commit_msg
 
 echo
 echo Moving files into the right folders
