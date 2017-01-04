@@ -6,9 +6,11 @@ if [${TRAVIS_EVENT_TYPE} = "cron"]
 then
 export COMMIT_MSG="$(date -u)"
 else
-export COMMIT_MSG="$(git log -n ${TRAVIS_COMMIT_RANGE} --oneline)"
+read  -d '' COMMIT_MSG << EOF
+"$(git log -${TRAVIS_COMMIT_RANGE} --oneline)"
+EOF
 fi
-echo Commit message was set to: ${COMMIT_MSG}
+echo "Commit message was set to: ${COMMIT_MSG}"
 
 echo
 echo Moving files into the right folders
