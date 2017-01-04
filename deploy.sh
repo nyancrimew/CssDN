@@ -45,4 +45,4 @@ git add .
 git commit -m"$(date -u)"
 
 echo Deploy
-git push
+git push --quiet
