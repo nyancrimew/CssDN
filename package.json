@@ -2,9 +2,9 @@
   "name": "cssdn",
   "version": "1.0.0",
   "description": "CDN for often used css / js frameworks like github-light.css or others, minified and built daily",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "./build.sh",
+    "test": "echo \"No test specified\" && exit 0"
   },
   "repository": {
     "type": "git",
@@ -17,7 +17,6 @@
     "deletescape"
   ],
   "author": "deletescape",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Deletescape-Media/CssDN/issues"
   },
