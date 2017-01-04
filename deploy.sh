@@ -53,7 +53,7 @@ cp -r ../build/out/js js
 cp -r ../build/out/css css
 
 echo Commit with git
-git add .
+git add --all .
 git commit -m"${COMMIT_MSG}"
 
 echo Deploy
