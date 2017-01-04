@@ -6,7 +6,7 @@ if ["${TRAVIS_EVENT_TYPE}" = "cron"]
 then
 echo "Daily build - $(date -u)">>commit_msg
 else
-git log -${TRAVIS_COMMIT_RANGE} --oneline>>commit_msg
+git log -3 --oneline>>commit_msg
 fi
 echo "Commit message was set to:"
 cat commit_msg
