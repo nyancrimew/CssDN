@@ -24,7 +24,8 @@ echo
 npm run build
 echo
 echo Copying artifacts to output directory
-cp -r build/* ../../build
+cp build/css/github-light.css ../../build
+cp build/css/github-dark.css ../../build
 cd ../..
 
 echo
