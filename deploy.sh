@@ -1,5 +1,15 @@
 #!/bin/sh
 
+echo Preparing commit message
+echo
+if [${TRAVIS_EVENT_TYPE} = "cron"]
+then
+export COMMIT_MSG="$(date -u)"
+else
+export COMMIT_MSG="$(git log -n ${TRAVIS_COMMIT_RANGE} --oneline)"
+fi
+
+echo
 echo Moving files into the right folders
 mkdir build/out
 mkdir build/out/js
@@ -43,7 +53,12 @@ cp -r ../build/out/css css
 
 echo Commit with git
 git add .
-git commit -m"$(date -u)"
+
+
+git commit -m
+else
+git commit -m"${COMMIT_MSG}"
+fi
 
 echo Deploy
 git push --quiet
