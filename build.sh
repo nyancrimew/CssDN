@@ -51,5 +51,15 @@ cp dist/jquery.js ../../build
 cd ../..
 
 echo
+echo Cloning spin.js
+echo
+git clone --depth=1 --branch=master https://github.com/fgnass/spin.js.git repos/spin && cd repos/spin
+echo
+echo Copying artifacts to output directory
+cp spin.js ../../build
+cp jquery.spin.js ../../build
+cd ../..
+
+echo
 echo Deploying to gh-pages branch
 ./deploy.sh
