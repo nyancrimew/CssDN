@@ -50,13 +50,17 @@ echo Delete old artifacts
 rm -rf js
 rm -rf css
 
+echo
 echo Copy new artifacts
 cp -r ../build/out/js js
 cp -r ../build/out/css css
 
+echo
 echo Commit with git
 git add --all .
 git commit -m"${COMMIT_MSG}"
 
+echo
 echo Deploy
 git push --quiet
+echo
