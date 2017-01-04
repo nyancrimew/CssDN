@@ -4,12 +4,12 @@ echo Preparing commit message
 echo
 if [${TRAVIS_EVENT_TYPE} = "cron"]
 then
-COMMIT_MSG="$(date -u)"
+echo "Daily build - $(date -u)">>commit_msg
 else
 git log -${TRAVIS_COMMIT_RANGE} --oneline>>commit_msg
-COMMIT_MSG="$(cat commit_msg)"
 fi
-echo "Commit message was set to: ${COMMIT_MSG}"
+echo "Commit message was set to:"
+cat commit_msg
 
 echo
 echo Moving files into the right folders
@@ -57,7 +57,7 @@ cp -r ../build/out/css css
 echo
 echo Commit with git
 git add --all .
-git commit -m"${COMMIT_MSG}"
+git commit -F commit_msg
 
 echo
 echo Deploy
