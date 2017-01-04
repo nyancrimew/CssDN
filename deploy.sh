@@ -2,7 +2,7 @@
 
 echo Preparing commit message
 echo
-if [${TRAVIS_EVENT_TYPE} = "cron"]
+if ["${TRAVIS_EVENT_TYPE}" = "cron"]
 then
 echo "Daily build - $(date -u)">>commit_msg
 else
@@ -57,7 +57,7 @@ cp -r ../build/out/css css
 echo
 echo Commit with git
 git add --all .
-git commit -F commit_msg
+git commit -F ../commit_msg
 
 echo
 echo Deploy
