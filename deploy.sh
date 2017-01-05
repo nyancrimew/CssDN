@@ -50,6 +50,15 @@ cp -r ../build/out/js js
 cp -r ../build/out/css css
 
 echo
+echo Check if jquery actually had any changes
+if [ "$(git diff --numstat js/jquery.js | sed 's/ //g')" == "22jquery.js" ]
+then
+echo Only build date / time changed, checking out our last build
+git checkout js/jquery.js
+git checkout js/jquery.min.js
+fi
+
+echo
 echo Commit with git
 git add --all .
 git commit -F ../commit_msg
