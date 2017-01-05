@@ -31,12 +31,12 @@ echo -- Minifying JS
 echo
 
 echo Cloning this repository itself into a sub directory
-git clone --depth=1 --branch=gh-pages https://${GITHUB_TOKEN}@github.com/Deletescape-Media/CssDN.git && cd CssDN
+git clone --depth=1 --branch=gh-pages https://$GITHUB_TOKEN@github.com/$GITHUB_REPO.git && cd CssDN
 
 echo
 echo Git config
-git config user.name "deletescape"
-git config user.email "deletescape@outlook.com"
+git config user.name $GIT_USER
+git config user.email $GIT_EMAIL
 git config --global push.default simple
 
 echo
