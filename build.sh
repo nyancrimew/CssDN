@@ -63,7 +63,7 @@ cd ../..
 echo
 echo Cloning underscore.js
 echo
-git clone --depth=1 --branch=master https://github.com/jashkenas/underscore.git && cd repos/underscore
+git clone --depth=1 --branch=master https://github.com/jashkenas/underscore.git repos/underscore && cd repos/underscore
 echo
 echo Copying artifacts to output directory
 cp underscore.js ../../build
