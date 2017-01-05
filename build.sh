@@ -126,5 +126,18 @@ cp dist/css/swiper.css ../../build
 cd ../..
 
 echo
+echo Cloning Bulma
+echo
+git clone --depth=1 --branch=master https://github.com/jgthms/bulma.git repos/bulma && cd repos/bulma
+echo
+echo Building Bulma
+echo
+npm install && npm run build
+echo
+echo Copying artifacts to output directory
+cp css/bulma.css ../../build
+cd ../..
+
+echo
 echo Deploying to gh-pages branch
 ./deploy.sh

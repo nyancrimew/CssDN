@@ -82,6 +82,11 @@ CDN for often used css / js frameworks like github-light.css or similar, minifie
 * [scale.fix.js](https://deletescape-media.github.io/CssDN/js/scale.fix.js)
 * [scale.fix.min.js](https://deletescape-media.github.io/CssDN/js/scale.fix.min.js)
 
+### [Bulma](https://github.com/jgthms/bulma)
+
+* [bulma.css](https://deletescape-media.github.io/CssDN/css/bulma.css)
+* [bulma.min.css](https://deletescape-media.github.io/CssDN/css/bulma.min.css)
+
 ## License
 
 MIT License
