@@ -99,5 +99,16 @@ cp mousetrap.js ../../build
 cd ../..
 
 echo
+echo Cloning intro.js
+echo
+git clone --depth=1 --branch=master https://github.com/usablica/intro.js.git repos/intro && cd repos/intro
+echo
+echo Copying artifacts to output directory
+cp intro.js ../../build
+cp introjs.css ../../build
+cp introjs-rtl.css ../../build
+cd ../..
+
+echo
 echo Deploying to gh-pages branch
 ./deploy.sh
