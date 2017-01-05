@@ -1,6 +1,14 @@
 # CssDN
 CDN for often used css / js frameworks like github-light.css or similar, minified and built daily
 
+## Build Status
+
+[![Build Status](https://travis-ci.org/Deletescape-Media/CssDN.svg?branch=master)](https://travis-ci.org/Deletescape-Media/CssDN)
+
+## IMPORTANT NOTICE
+
+> You are using CssDN on your own risk! Keep in mind that the builds hosted here are **NOT SUPPORTED** by any library developers and might be unstable. We usually build from the master branch or whatever appears to be the default branch, but we can't grant that our builds work.
+
 ## Hosted Libraries
 
 ### github-light.css Syntax Theme ([github-syntax-theme-generator](https://github.com/primer/github-syntax-theme-generator))
