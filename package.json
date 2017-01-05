@@ -10,17 +10,18 @@
     "type": "git",
     "url": "git+https://github.com/Deletescape-Media/CssDN.git"
   },
+  "license" : "MIT",
   "keywords": [
     "css",
     "cdn",
     "js",
     "deletescape"
   ],
-  "author": "deletescape",
+  "author": "Till Kottmann <deletescape@outlook.com> (http://deletescape.ch/)",
   "bugs": {
     "url": "https://github.com/Deletescape-Media/CssDN/issues"
   },
-  "homepage": "https://github.com/Deletescape-Media/CssDN#readme",
+  "homepage": "https://deletescape-media.github.io/CssDN",
   "dependencies": {
     "minifier": "^0.8.0"
   }
