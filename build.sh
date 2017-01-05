@@ -99,23 +99,5 @@ cp mousetrap.js ../../build
 cd ../..
 
 echo
-echo Cloning reveal.js
-echo
-git clone --depth=1 --branch=master https://github.com/hakimel/reveal.js.git repos/reveal && cd repos/reveal
-echo
-echo Building reveal.js
-echo
-npm install && grunt
-echo
-echo Copying artifacts to output directory
-cp css/reveal.css ../../build
-cp js/reveal.js ../../build
-cd css/theme/
-for f in *.css ; do mv "$f" "reveal.$f" ; done
-cd ../..
-cp css/theme/*.css ../../build
-cd ../..
-
-echo
 echo Deploying to gh-pages branch
 ./deploy.sh
