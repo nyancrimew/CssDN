@@ -51,8 +51,7 @@ cp -r ../build/out/css css
 
 echo
 echo Check if jquery actually had any changes
-diff=`echo $(git diff --numstat js/jquery.js))`
-if [ "$diff" == "1 1 js/jquery.js" ]
+if [ "$(echo $(git diff --numstat js/jquery.js))" = "1 1 js/jquery.js" ]
 then
 echo Only build date / time changed, checking out our last build
 git checkout js/jquery.js
