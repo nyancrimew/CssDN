@@ -58,6 +58,14 @@ git checkout js/jquery.js
 git checkout js/jquery.min.js
 fi
 
+if [ "$(git diff)" = "" ]
+then
+echo
+echo "Nothing changed since last build"
+echo "We're finished here"
+exit 0
+fi
+
 echo
 echo Commit with git
 git add --all .
