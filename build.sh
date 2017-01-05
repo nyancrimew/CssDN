@@ -70,5 +70,16 @@ cp underscore.js ../../build
 cd ../..
 
 echo
+echo Cloning slick
+echo
+git clone --depth=1 --branch=master https://github.com/kenwheeler/slick.git repos/slick && cd repos/slick
+echo
+echo Copying artifacts to output directory
+cp slick/slick.js ../../build
+cp slick/slick.css ../../build
+cp slick/slick-theme.css ../../build
+cd ../..
+
+echo
 echo Deploying to gh-pages branch
 ./deploy.sh
