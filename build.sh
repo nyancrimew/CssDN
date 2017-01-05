@@ -90,5 +90,14 @@ cp dist/ramda.js ../../build
 cd ../..
 
 echo
+echo Cloning mousetrap
+echo
+git clone --depth=1 --branch=master https://github.com/ccampbell/mousetrap.git repos/mousetrap && cd repos/mousetrap
+echo
+echo Copying artifacts to output directory
+cp mousetrap.js ../../build
+cd ../..
+
+echo
 echo Deploying to gh-pages branch
 ./deploy.sh
