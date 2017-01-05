@@ -77,5 +77,18 @@ cp slick/slick-theme.css ../../build
 cd ../..
 
 echo
+echo Cloning ramda
+echo
+git clone --depth=1 --branch=master https://github.com/ramda/ramda.git repos/ramda && cd repos/ramda
+echo
+echo Building ramda
+echo
+npm install && npm run build
+echo
+echo Copying artifacts to output directory
+cp dist/ramda.js ../../build
+cd ../..
+
+echo
 echo Deploying to gh-pages branch
 ./deploy.sh
