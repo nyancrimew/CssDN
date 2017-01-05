@@ -16,14 +16,10 @@ mkdir build/out
 mkdir build/out/js
 mkdir build/out/css
 
-mv build/*.js build/out/js
-mv build/**/*.js build/out/js
-mv build/*.css build/out/css
-mv build/**/*.css build/out/css
-cp libs/*.js build/out/js
-cp libs/**/*.js build/out/js
-cp libs/*.css build/out/css
-cp libs/**/*.css build/out/css
+find build -type f -name "*.js" -exec mv -t build/out/js {} +
+find build -type f -name "*.css" -exec mv -t build/out/css {} +
+find libs -type f -name "*.js" -exec cp -t build/out/js {} +
+find libs -type f -name "*.css" -exec cp -t build/out/css {} +
 echo
 
 echo Minification
