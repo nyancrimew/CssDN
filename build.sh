@@ -139,5 +139,19 @@ cp css/bulma.css ../../build
 cd ../..
 
 echo
+echo Cloning Material Design Lite
+echo
+git clone --depth=1 --branch=mdl-1.x  https://github.com/google/material-design-lite.git repos/material-design-lite && cd repos/material-design-lite
+echo
+echo Building Material Design Lite
+echo
+npm install && gulp
+echo
+echo Copying artifacts to output directory
+cp dist/material.css ../../build
+cp dist/material.js ../../build
+cd ../..
+
+echo
 echo Deploying to gh-pages branch
 ./deploy.sh
