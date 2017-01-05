@@ -15,13 +15,9 @@ echo Cloning github-syntax-theme-generator
 echo
 git clone --depth=1 --branch=master https://github.com/primer/github-syntax-theme-generator.git repos/github-syntax-theme-generator && cd repos/github-syntax-theme-generator
 echo
-echo Loading dependencies of github-syntax-theme-generator
-echo
-npm install
-echo
 echo Building github-syntax-theme-generator
 echo
-npm run build
+npm install && npm run build
 echo
 echo Copying artifacts to output directory
 cp build/css/github-light.css ../../build
