@@ -110,7 +110,9 @@ echo
 echo Copying artifacts to output directory
 cp css/reveal.css ../../build
 cp js/reveal.js ../../build
-for f in css/theme/*.css ; do mv "$f" "reveal.$f" ; done
+cd css/theme/
+for f in *.css ; do mv "$f" "reveal.$f" ; done
+cd ../..
 cp css/theme/*.css ../../build
 cd ../..
 
