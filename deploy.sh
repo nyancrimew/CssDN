@@ -58,7 +58,11 @@ git checkout js/jquery.js
 git checkout js/jquery.min.js
 fi
 
-if [ "$(git diff)" = "" ]
+echo
+echo Stage changes for git
+git add --all .
+
+if [ "$(git diff --staged)" = "" ]
 then
 echo
 echo "Nothing changed since last build"
@@ -68,7 +72,6 @@ fi
 
 echo
 echo Commit with git
-git add --all .
 git commit -F ../commit_msg
 
 echo
