@@ -110,5 +110,21 @@ cp introjs-rtl.css ../../build
 cd ../..
 
 echo
+echo Cloning Swiper
+echo
+git clone --depth=1 --branch=master https://github.com/nolimits4web/Swiper.git repos/Swiper && cd repos/Swiper
+echo
+echo Building Swiper
+echo
+npm install && gulp dist
+echo
+echo Copying artifacts to output directory
+cp dist/js/swiper.jquery.js ../../build
+cp dist/js/swiper.jquery.umd.js ../../build
+cp dist/js/swiper.js ../../build
+cp dist/css/swiper.css ../../build
+cd ../..
+
+echo
 echo Deploying to gh-pages branch
 ./deploy.sh
