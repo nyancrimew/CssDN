@@ -5,6 +5,7 @@ getCache() {
   then
     echo
     echo Getting cache
+    mkdir node_modules
     cp -rf ../repos_npm_cache/* node_modules
   else
     if [ ! -d "../repos_npm_cache" ]
