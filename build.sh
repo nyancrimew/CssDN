@@ -34,6 +34,7 @@ fi
 echo Globally installing gulp because it is used quite often
 echo
 npm install -g gulp
+npm install -g node-sass
 
 echo
 echo Creating build folder
