@@ -1,9 +1,17 @@
 #!/bin/sh -e
 
 getCache() {
-  echo
-  echo Getting cache
-  find ../repos_npm_cache -exec cp -t node_modules {} +
+  if [ -e "../repos_npm_cache/*" ]
+  then
+    echo
+    echo Getting cache
+    cp -rf ../repos_npm_cache/* node_modules
+  else
+    if [ ! -d "../repos_npm_cache" ]
+    then
+      mkdir ../repos_npm_cache
+    fi
+  fi
 }
 
 storeCache() {
@@ -20,12 +28,6 @@ echo Loading dependencies
 echo
 npm install
 echo
-fi
-
-if [ ! -d "repos_npm_cache" ]
-then
-  echo Creating sub repo npm cache directory
-  mkdir repos_npm_cache
 fi
 
 echo Globally installing gulp because it is used quite often
