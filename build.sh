@@ -22,7 +22,7 @@ npm install
 echo
 fi
 
-if [ ! -d "repos_npm_cache" ]
+if [ ! -e "repos_npm_cache" ]
 then
   echo Creating sub repo npm cache directory
   mkdir repos_npm_cache
