@@ -1,21 +1,5 @@
 #!/bin/sh -e
 
-getCache() {
-  if [ -n "$(ls -A ../repos_npm_cache/*)" ]
-  then
-    echo
-    echo Getting cache
-    mkdir node_modules
-    cp -rf ../repos_npm_cache/* node_modules
-  fi
-}
-
-storeCache() {
-  echo
-  echo Saving to cache
-  cp -rf node_modules/* ../repos_npm_cache/
-}
-
 if [ "$TRAVIS" != "true" ]
 then
 ./clean.sh
@@ -29,7 +13,6 @@ fi
 echo Globally installing gulp because it is used quite often
 echo
 npm install -g gulp
-npm install -g node-sass
 
 echo
 echo Creating build folder
@@ -39,12 +22,10 @@ echo
 echo Cloning github-syntax-theme-generator
 echo
 git clone --depth=1 --branch=master https://github.com/primer/github-syntax-theme-generator.git repos/github-syntax-theme-generator && cd repos/github-syntax-theme-generator
-getCache
 echo
 echo Building github-syntax-theme-generator
 echo
 npm install && npm run build
-storeCache
 echo
 echo Copying artifacts to output directory
 cp build/css/github-light.css ../../build
@@ -64,12 +45,10 @@ echo
 echo Cloning jquery
 echo
 git clone --depth=1 --branch=master https://github.com/jquery/jquery.git repos/jquery && cd repos/jquery
-getCache
 echo
 echo Building jquery
 echo
 npm run build
-storeCache
 echo
 echo Copying artifacts to output directory
 cp dist/jquery.js ../../build
@@ -109,12 +88,10 @@ echo
 echo Cloning ramda
 echo
 git clone --depth=1 --branch=master https://github.com/ramda/ramda.git repos/ramda && cd repos/ramda
-getCache
 echo
 echo Building ramda
 echo
 npm install && npm run build
-storeCache
 echo
 echo Copying artifacts to output directory
 cp dist/ramda.js ../../build
@@ -144,12 +121,10 @@ echo
 echo Cloning Swiper
 echo
 git clone --depth=1 --branch=master https://github.com/nolimits4web/Swiper.git repos/Swiper && cd repos/Swiper
-getCache
 echo
 echo Building Swiper
 echo
 npm install && gulp dist
-storeCache
 echo
 echo Copying artifacts to output directory
 cp dist/js/swiper.jquery.js ../../build
@@ -162,12 +137,10 @@ echo
 echo Cloning Bulma
 echo
 git clone --depth=1 --branch=master https://github.com/jgthms/bulma.git repos/bulma && cd repos/bulma
-getCache
 echo
 echo Building Bulma
 echo
 npm install && npm run build
-storeCache
 echo
 echo Copying artifacts to output directory
 cp css/bulma.css ../../build
@@ -177,12 +150,10 @@ echo
 echo Cloning Material Design Lite
 echo
 git clone --depth=1 --branch=mdl-1.x  https://github.com/google/material-design-lite.git repos/material-design-lite && cd repos/material-design-lite
-getCache
 echo
 echo Building Material Design Lite
 echo
 npm install && gulp
-storeCache
 echo
 echo Copying artifacts to output directory
 cp dist/material.css ../../build
