@@ -3,7 +3,7 @@
 getCache() {
   echo
   echo Getting cache
-  find repos_npm_cache -exec cp -t node_modules {} +
+  find ../repos_npm_cache -exec cp -t node_modules {} +
 }
 
 storeCache() {
@@ -22,7 +22,7 @@ npm install
 echo
 fi
 
-if [ ! -e "repos_npm_cache" ]
+if [ ! -d "repos_npm_cache" ]
 then
   echo Creating sub repo npm cache directory
   mkdir repos_npm_cache
