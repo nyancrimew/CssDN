@@ -59,10 +59,6 @@ git checkout js/jquery.min.js
 fi
 
 echo
-echo Copy README.md from master branch
-cp -f ../README.md README.md
-
-echo
 echo Stage changes for git
 git add --all .
 
