@@ -1,5 +1,17 @@
 #!/bin/sh -e
 
+getCache() {
+  echo
+  echo Getting cache
+  find repos_npm_cache -exec cp -t node_modules {} +
+}
+
+storeCache() {
+  echo
+  echo Saving to cache
+  cp -rf node_modules/* ../repos_npm_cache/
+}
+
 if [ "$TRAVIS" != "true" ]
 then
 ./clean.sh
@@ -28,16 +40,12 @@ echo
 echo Cloning github-syntax-theme-generator
 echo
 git clone --depth=1 --branch=master https://github.com/primer/github-syntax-theme-generator.git repos/github-syntax-theme-generator && cd repos/github-syntax-theme-generator
-echo
-echo Getting cache
-cp -r ../repos_npm_cache/* node_modules || true
+getCache
 echo
 echo Building github-syntax-theme-generator
 echo
 npm install && npm run build
-echo
-echo Saving to cache
-cp -rf node_modules/* ../repos_npm_cache/
+storeCache
 echo
 echo Copying artifacts to output directory
 cp build/css/github-light.css ../../build
@@ -57,16 +65,12 @@ echo
 echo Cloning jquery
 echo
 git clone --depth=1 --branch=master https://github.com/jquery/jquery.git repos/jquery && cd repos/jquery
-echo
-echo Getting cache
-cp -r ../repos_npm_cache/* node_modules || true
+getCache
 echo
 echo Building jquery
 echo
 npm run build
-echo
-echo Saving to cache
-cp -rf node_modules/* ../repos_npm_cache/
+storeCache
 echo
 echo Copying artifacts to output directory
 cp dist/jquery.js ../../build
@@ -106,16 +110,12 @@ echo
 echo Cloning ramda
 echo
 git clone --depth=1 --branch=master https://github.com/ramda/ramda.git repos/ramda && cd repos/ramda
-echo
-echo Getting cache
-cp -r ../repos_npm_cache/* node_modules || true
+getCache
 echo
 echo Building ramda
 echo
 npm install && npm run build
-echo
-echo Saving to cache
-cp -rf node_modules/* ../repos_npm_cache/
+storeCache
 echo
 echo Copying artifacts to output directory
 cp dist/ramda.js ../../build
@@ -145,16 +145,12 @@ echo
 echo Cloning Swiper
 echo
 git clone --depth=1 --branch=master https://github.com/nolimits4web/Swiper.git repos/Swiper && cd repos/Swiper
-echo
-echo Getting cache
-cp -r ../repos_npm_cache/* node_modules || true
+getCache
 echo
 echo Building Swiper
 echo
 npm install && gulp dist
-echo
-echo Saving to cache
-cp -rf node_modules/* ../repos_npm_cache/
+storeCache
 echo
 echo Copying artifacts to output directory
 cp dist/js/swiper.jquery.js ../../build
@@ -167,16 +163,12 @@ echo
 echo Cloning Bulma
 echo
 git clone --depth=1 --branch=master https://github.com/jgthms/bulma.git repos/bulma && cd repos/bulma
-echo
-echo Getting cache
-cp -r ../repos_npm_cache/* node_modules || true
+getCache
 echo
 echo Building Bulma
 echo
 npm install && npm run build
-echo
-echo Saving to cache
-cp -rf node_modules/* ../repos_npm_cache/
+storeCache
 echo
 echo Copying artifacts to output directory
 cp css/bulma.css ../../build
@@ -186,16 +178,12 @@ echo
 echo Cloning Material Design Lite
 echo
 git clone --depth=1 --branch=mdl-1.x  https://github.com/google/material-design-lite.git repos/material-design-lite && cd repos/material-design-lite
-echo
-echo Getting cache
-cp -r ../repos_npm_cache/* node_modules || true
+getCache
 echo
 echo Building Material Design Lite
 echo
 npm install && gulp
-echo
-echo Saving to cache
-cp -rf node_modules/* ../repos_npm_cache/
+storeCache
 echo
 echo Copying artifacts to output directory
 cp dist/material.css ../../build
