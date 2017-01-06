@@ -161,5 +161,14 @@ cp dist/material.js ../../build
 cd ../..
 
 echo
+echo Cloning Zenscroll
+echo
+git clone --depth=1 --branch=dist https://github.com/zengabor/zenscroll.git repos/zenscroll && cd repos/zenscroll
+echo
+echo Copying artifacts to output directory
+cp zenscroll.js ../../build
+cd ../..
+
+echo
 echo Deploying to gh-pages branch
 ./deploy.sh

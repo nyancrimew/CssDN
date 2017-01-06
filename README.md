@@ -94,6 +94,11 @@ CDN for often used css / js frameworks like github-light.css or similar, minifie
 * [material.js](https://deletescape-media.github.io/CssDN/js/material.js)
 * [material.min.js](https://deletescape-media.github.io/CssDN/js/material.min.js)
 
+### [Zenscroll](https://github.com/zengabor/zenscroll)
+
+* [zenscroll.js](https://deletescape-media.github.io/CssDN/js/zenscroll.js)
+* [zenscroll.min.js](https://deletescape-media.github.io/CssDN/js/zenscroll.min.js)
+
 ## License
 
 MIT License
