@@ -5,4 +5,3 @@ cache:
   directories:
     - ~/.nvm/versions/node/v7.4.0/lib/node_modules/
     - node_modules
-    - repos_npm_cache
