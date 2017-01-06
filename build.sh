@@ -1,11 +1,15 @@
 #!/bin/sh -e
 
+if [ "$TRAVIS" != "true" ]
+then
 ./clean.sh
 
 echo Loading dependencies
 echo
 npm install
 echo
+fi
+
 echo Globally installing gulp because it is used quite often
 echo
 npm install -g gulp
