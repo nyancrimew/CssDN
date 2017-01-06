@@ -19,9 +19,6 @@ storeCache() {
   echo
   echo Saving to cache
   cp -rf node_modules/* ../repos_npm_cache/
-  echo
-  echo Currently cached:
-  find ../repos_npm_cache
 }
 
 if [ "$TRAVIS" != "true" ]
