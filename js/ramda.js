@@ -3627,10 +3627,10 @@
      * @see R.reduce, R.transduce
      * @example
      *
-     *      R.reduce(
-     *        R.pipe(R.add, R.when(R.gte(R.__, 10), R.reduced)),
-     *        0,
-     *        [1, 2, 3, 4, 5]) // 10
+     *     R.reduce(
+     *       (acc, item) => it > 3 ? R.reduced(acc) : acc.concat(item),
+     *       [],
+     *       [1, 2, 3, 4, 5]) // [1, 2, 3]
      */
     var reduced = _curry1(_reduced);
 
@@ -5668,9 +5668,10 @@
     });
 
     /**
-     * Takes a predicate and a "filterable", and returns a new filterable of the
+     * Takes a predicate and a `Filterable`, and returns a new filterable of the
      * same type containing the members of the given filterable which satisfy the
-     * given predicate.
+     * given predicate. Filterable objects include plain objects or any object
+     * that has a filter method such as `Array`.
      *
      * Dispatches to the `filter` method of the second argument, if present.
      *
@@ -5683,7 +5684,7 @@
      * @sig Filterable f => (a -> Boolean) -> f a -> f a
      * @param {Function} pred
      * @param {Array} filterable
-     * @return {Array}
+     * @return {Array} Filterable
      * @see R.reject, R.transduce, R.addIndex
      * @example
      *
@@ -6492,7 +6493,8 @@
     /**
      * The complement of `filter`.
      *
-     * Acts as a transducer if a transformer is given in list position.
+     * Acts as a transducer if a transformer is given in list position. Filterable objects include plain objects or any object
+     * that has a filter method such as `Array`.
      *
      * @func
      * @memberOf R
@@ -7553,9 +7555,10 @@
     });
 
     /**
-     * Takes a predicate and a list or other "filterable" object and returns the
+     * Takes a predicate and a list or other `Filterable` object and returns the
      * pair of filterable objects of the same type of elements which do and do not
-     * satisfy, the predicate, respectively.
+     * satisfy, the predicate, respectively. Filterable objects include plain objects or any object
+     * that has a filter method such as `Array`.
      *
      * @func
      * @memberOf R
