@@ -170,5 +170,18 @@ cp zenscroll.js ../../build
 cd ../..
 
 echo
+echo Cloning Bulma.ir
+echo
+git clone --depth=1 --branch=master https://github.com/TeamIridium/bulma.ir.git repos/bulma.ir && cd repos/bulma.ir
+echo
+echo Building Bulma.ir
+echo
+npm install && npm run build
+echo
+echo Copying artifacts to output directory
+cp css/bulma.css ../../build/bulma.ir.css
+cd ../..
+
+echo
 echo Deploying to gh-pages branch
 ./deploy.sh
