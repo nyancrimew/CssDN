@@ -1383,7 +1383,7 @@
     var dec = add(-1);
 
     /**
-     * Returns the second argument if it is not `null`, `undefined` or `NaN`
+     * Returns the second argument if it is not `null`, `undefined` or `NaN`;
      * otherwise the first argument is returned.
      *
      * @func
@@ -6932,8 +6932,8 @@
     /**
      * Returns the result of calling its first argument with the remaining
      * arguments. This is occasionally useful as a converging function for
-     * `R.converge`: the left branch can produce a function while the right branch
-     * produces a value to be passed to that function as an argument.
+     * `R.converge`: the first branch can produce a function while the remaining
+     * branches produce values to be passed to that function as its arguments.
      *
      * @func
      * @memberOf R
@@ -7950,8 +7950,8 @@
 
     /**
      * Finds the set (i.e. no duplicates) of all elements in the first list not
-     * contained in the second list. Objects and Arrays are compared are compared
-     * in terms of value equality, not reference equality.
+     * contained in the second list. Objects and Arrays are compared in terms of
+     * value equality, not reference equality.
      *
      * @func
      * @memberOf R
