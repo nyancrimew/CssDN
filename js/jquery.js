@@ -9,7 +9,7 @@
  * Released under the MIT license
  * https://jquery.org/license
  *
- * Date: 2017-01-16T19:22Z
+ * Date: 2017-01-20T19:24Z
  */
 ( function( global, factory ) {
 
@@ -5338,9 +5338,11 @@ jQuery.event = {
 		},
 		click: {
 
-			// For checkbox, fire native event so checked state will be right
+			// For checkable types, fire native event so checked state will be right
 			trigger: function() {
-				if ( this.type === "checkbox" && this.click && jQuery.nodeName( this, "input" ) ) {
+				if ( rcheckableType.test( this.type ) &&
+					this.click && jQuery.nodeName( this, "input" ) ) {
+
 					this.click();
 					return false;
 				}
