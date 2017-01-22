@@ -1026,7 +1026,9 @@
     prevTooltipButton.removeAttribute('tabIndex');
     nextTooltipButton.removeAttribute('tabIndex');
 
+    // when it's the first step of tour
     if (this._currentStep == 0 && this._introItems.length > 1) {
+      skipTooltipButton.className = 'introjs-button introjs-skipbutton';
       nextTooltipButton.className = 'introjs-button introjs-nextbutton';
 
       if (this._options.hidePrev == true) {
@@ -1039,8 +1041,10 @@
       prevTooltipButton.tabIndex = '-1';
       skipTooltipButton.innerHTML = this._options.skipLabel;
     } else if (this._introItems.length - 1 == this._currentStep || this._introItems.length == 1) {
+      // last step of tour
       skipTooltipButton.innerHTML = this._options.doneLabel;
-      skipTooltipButton.className = 'introjs-button introjs-donebutton';
+      // adding donebutton class in addition to skipbutton
+      skipTooltipButton.className += ' introjs-donebutton';
       prevTooltipButton.className = 'introjs-button introjs-prevbutton';
 
       if (this._options.hideNext == true) {
@@ -1052,6 +1056,8 @@
 
       nextTooltipButton.tabIndex = '-1';
     } else {
+      // steps between start and end
+      skipTooltipButton.className = 'introjs-button introjs-skipbutton';
       prevTooltipButton.className = 'introjs-button introjs-prevbutton';
       nextTooltipButton.className = 'introjs-button introjs-nextbutton';
       skipTooltipButton.innerHTML = this._options.skipLabel;
@@ -1594,6 +1600,8 @@
   function _alignHintPosition(position, hint, element) {
     // get/calculate offset of target element
     var offset = _getOffset.call(this, element);
+    var iconWidth = 20;
+    var iconHeight = 20;
 
     // align the hint element
     switch (position) {
@@ -1603,23 +1611,35 @@
         hint.style.top = offset.top + 'px';
         break;
       case 'top-right':
-        hint.style.left = (offset.left + offset.width) + 'px';
+        hint.style.left = (offset.left + offset.width - iconWidth) + 'px';
         hint.style.top = offset.top + 'px';
         break;
       case 'bottom-left':
         hint.style.left = offset.left + 'px';
-        hint.style.top = (offset.top + offset.height) + 'px';
+        hint.style.top = (offset.top + offset.height - iconHeight) + 'px';
         break;
       case 'bottom-right':
-        hint.style.left = (offset.left + offset.width) + 'px';
-        hint.style.top = (offset.top + offset.height) + 'px';
+        hint.style.left = (offset.left + offset.width - iconWidth) + 'px';
+        hint.style.top = (offset.top + offset.height - iconHeight) + 'px';
+        break;
+      case 'middle-left':
+        hint.style.left = offset.left + 'px';
+        hint.style.top = (offset.top + (offset.height - iconHeight) / 2) + 'px';
+        break;
+      case 'middle-right':
+        hint.style.left = (offset.left + offset.width - iconWidth) + 'px';
+        hint.style.top = (offset.top + (offset.height - iconHeight) / 2) + 'px';
+        break;
+      case 'middle-middle':
+        hint.style.left = (offset.left + (offset.width - iconWidth) / 2) + 'px';
+        hint.style.top = (offset.top + (offset.height - iconHeight) / 2) + 'px';
         break;
       case 'bottom-middle':
-        hint.style.left = (offset.left + (offset.width / 2)) + 'px';
-        hint.style.top = (offset.top + offset.height) + 'px';
+        hint.style.left = (offset.left + (offset.width - iconWidth) / 2) + 'px';
+        hint.style.top = (offset.top + offset.height - iconHeight) + 'px';
         break;
       case 'top-middle':
-        hint.style.left = (offset.left + (offset.width / 2)) + 'px';
+        hint.style.left = (offset.left + (offset.width - iconWidth) / 2) + 'px';
         hint.style.top = offset.top + 'px';
         break;
     }
