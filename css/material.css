@@ -4233,9 +4233,6 @@ input.mdl-button[type="submit"] {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-justify-content: stretch;
-      -ms-flex-pack: stretch;
-          justify-content: stretch;
   line-height: normal;
   padding: 16px 16px;
   -webkit-perspective-origin: 165px 56px;
