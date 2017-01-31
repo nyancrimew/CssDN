@@ -7906,6 +7906,7 @@
      * @sig (* -> {*}) -> (* -> {*})
      * @param {Function} fn The constructor function to wrap.
      * @return {Function} A wrapped, curried constructor function.
+     * @see R.invoker
      * @example
      *
      *      // Constructor function
@@ -8500,6 +8501,7 @@
      *        before the target object.
      * @param {String} method Name of the method to call.
      * @return {Function} A new curried function.
+     * @see R.construct
      * @example
      *
      *      var sliceFrom = R.invoker(1, 'slice');
