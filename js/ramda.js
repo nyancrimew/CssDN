@@ -2087,6 +2087,46 @@
     var inc = add(1);
 
     /**
+     * Takes a predicate `pred`, a list `xs`, and a list `ys`, and returns a list
+     * `xs'` comprising each of the elements of `xs` which is equal to one or more
+     * elements of `ys` according to `pred`.
+     *
+     * `pred` must be a binary function expecting an element from each list.
+     *
+     * `xs`, `ys`, and `xs'` are treated as sets, semantically, so ordering should
+     * not be significant, but since `xs'` is ordered the implementation guarantees
+     * that its values are in the same order as they appear in `xs`. Duplicates are
+     * not removed, so `xs'` may contain duplicates if `xs` contains duplicates.
+     *
+     * @func
+     * @memberOf R
+     * @category Relation
+     * @sig (a -> b -> Boolean) -> [a] -> [b] -> [a]
+     * @param {Function} pred
+     * @param {Array} xs
+     * @param {Array} ys
+     * @return {Array}
+     * @see R.intersection
+     * @example
+     *
+     *      R.innerJoin(
+     *        (record, id) => record.id === id,
+     *        [{id: 824, name: 'Richie Furay'},
+     *         {id: 956, name: 'Dewey Martin'},
+     *         {id: 313, name: 'Bruce Palmer'},
+     *         {id: 456, name: 'Stephen Stills'},
+     *         {id: 177, name: 'Neil Young'}],
+     *        [177, 456, 999]
+     *      );
+     *      //=> [{id: 456, name: 'Stephen Stills'}, {id: 177, name: 'Neil Young'}]
+     */
+    var innerJoin = _curry3(function innerJoin(pred, xs, ys) {
+        return _filter(function (x) {
+            return _containsWith(pred, x, ys);
+        }, xs);
+    });
+
+    /**
      * Inserts the supplied element into the list, at index `index`. _Note that
      * this is not destructive_: it returns a copy of the list with the changes.
      * <small>No lists have been harmed in the application of this function.</small>
@@ -5854,7 +5894,8 @@
      * @param {Array} list1 One list of items to compare
      * @param {Array} list2 A second list of items to compare
      * @return {Array} A new list containing those elements common to both lists.
-     * @see R.intersection
+     * @see R.innerJoin
+     * @deprecated since v0.24.0
      * @example
      *
      *      var buffaloSpringfield = [
@@ -8773,7 +8814,7 @@
      * @param {Array} list1 The first list.
      * @param {Array} list2 The second list.
      * @return {Array} The list of elements found in both `list1` and `list2`.
-     * @see R.intersectionWith
+     * @see R.innerJoin
      * @example
      *
      *      R.intersection([1,2,3,4], [7,6,5,4,3]); //=> [4, 3]
@@ -8895,6 +8936,7 @@
         indexBy: indexBy,
         indexOf: indexOf,
         init: init,
+        innerJoin: innerJoin,
         insert: insert,
         insertAll: insertAll,
         intersection: intersection,
