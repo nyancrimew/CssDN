@@ -4242,6 +4242,7 @@
      * @param {Function} fn The function to invoke. Passed one argument, the current value of `n`.
      * @param {Number} n A value between `0` and `n - 1`. Increments after each function call.
      * @return {Array} An array containing the return values of all calls to `fn`.
+     * @see R.repeat
      * @example
      *
      *      R.times(R.identity, 5); //=> [0, 1, 2, 3, 4]
@@ -6573,6 +6574,7 @@
      * @param {*} value The value to repeat.
      * @param {Number} n The desired size of the output list.
      * @return {Array} A new array containing `n` `value`s.
+     * @see R.times
      * @example
      *
      *      R.repeat('hi', 5); //=> ['hi', 'hi', 'hi', 'hi', 'hi']
