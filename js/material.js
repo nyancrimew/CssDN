@@ -17,7 +17,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 /**
  * A component handler interface using the revealing module design pattern.
  * More details on this design pattern here:
@@ -2118,6 +2117,7 @@ var MaterialSnackbar = function MaterialSnackbar(element) {
     this.actionHandler_ = undefined;
     this.message_ = undefined;
     this.actionText_ = undefined;
+    this.timeoutID_ = undefined;
     this.queuedNotifications_ = [];
     this.setActionHidden_(true);
 };
@@ -2161,7 +2161,7 @@ MaterialSnackbar.prototype.displaySnackbar_ = function () {
     this.textElement_.textContent = this.message_;
     this.element_.classList.add(this.cssClasses_.ACTIVE);
     this.element_.setAttribute('aria-hidden', 'false');
-    setTimeout(this.cleanup_.bind(this), this.timeout_);
+    this.timeoutID_ = setTimeout(this.cleanup_.bind(this), this.timeout_);
 };
 /**
    * Show the snackbar.
@@ -2200,6 +2200,21 @@ MaterialSnackbar.prototype.showSnackbar = function (data) {
 };
 MaterialSnackbar.prototype['showSnackbar'] = MaterialSnackbar.prototype.showSnackbar;
 /**
+   * Hide the snackbar.
+   *
+   * @public
+   */
+MaterialSnackbar.prototype.hideSnackbar = function () {
+    if (!this.active) {
+        return;
+    }
+    if (typeof this.timeoutID_ === 'number') {
+        clearTimeout(this.timeoutID_);
+        this.cleanup_();
+    }
+};
+MaterialSnackbar.prototype['hideSnackbar'] = MaterialSnackbar.prototype.hideSnackbar;
+/**
    * Check if the queue has items within it.
    * If it does, display the next entry.
    *
@@ -2228,6 +2243,7 @@ MaterialSnackbar.prototype.cleanup_ = function () {
         this.actionHandler_ = undefined;
         this.message_ = undefined;
         this.actionText_ = undefined;
+        this.timeoutID_ = undefined;
         this.active = false;
         this.checkQueue_();
     }.bind(this), this.Constant_.ANIMATION_LENGTH);
