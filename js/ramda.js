@@ -2127,7 +2127,8 @@
     });
 
     /**
-     * Inserts the supplied element into the list, at index `index`. _Note that
+     * Inserts the supplied element into the list, at the specified `index`. _Note that
+
      * this is not destructive_: it returns a copy of the list with the changes.
      * <small>No lists have been harmed in the application of this function.</small>
      *
@@ -2152,7 +2153,7 @@
     });
 
     /**
-     * Inserts the sub-list into the list, at index `index`. _Note that this is not
+     * Inserts the sub-list into the list, at the specified `index`. _Note that this is not
      * destructive_: it returns a copy of the list with the changes.
      * <small>No lists have been harmed in the application of this function.</small>
      *
