@@ -9,7 +9,7 @@
  * Released under the MIT license
  * https://jquery.org/license
  *
- * Date: 2017-02-13T19:37Z
+ * Date: 2017-03-01T19:44Z
  */
 ( function( global, factory ) {
 
@@ -351,10 +351,6 @@ jQuery.extend( {
 	// Microsoft forgot to hump their vendor prefix (#9572)
 	camelCase: function( string ) {
 		return string.replace( rmsPrefix, "ms-" ).replace( rdashAlpha, fcamelCase );
-	},
-
-	nodeName: function( elem, name ) {
-		return elem.nodeName && elem.nodeName.toLowerCase() === name.toLowerCase();
 	},
 
 	each: function( obj, callback ) {
@@ -3060,6 +3056,13 @@ init.prototype = jQuery.fn;
 rootjQuery = jQuery( document );
 
 
+function nodeName( elem, name ) {
+
+  return elem.nodeName && elem.nodeName.toLowerCase() === name.toLowerCase();
+
+};
+
+
 var rparentsprev = /^(?:parents|prev(?:Until|All))/,
 
 	// Methods guaranteed to produce a unique set when starting from a unique set
@@ -3192,14 +3195,14 @@ jQuery.each( {
 		return siblings( elem.firstChild );
 	},
 	contents: function( elem ) {
-        if ( jQuery.nodeName( elem, "iframe" ) ) {
+        if ( nodeName( elem, "iframe" ) ) {
             return elem.contentDocument;
         }
 
         // Support: IE 9 - 11 only, iOS 7 only, Android Browser <=4.3 only
         // Treat the template element as a regular one in browsers that
         // don't support it.
-        if ( jQuery.nodeName( elem, "template" ) ) {
+        if ( nodeName( elem, "template" ) ) {
             elem = elem.content || elem;
         }
 
@@ -4735,7 +4738,7 @@ function getAll( context, tag ) {
 		ret = [];
 	}
 
-	if ( tag === undefined || tag && jQuery.nodeName( context, tag ) ) {
+	if ( tag === undefined || tag && nodeName( context, tag ) ) {
 		return jQuery.merge( [ context ], ret );
 	}
 
@@ -5343,7 +5346,7 @@ jQuery.event = {
 			// For checkable types, fire native event so checked state will be right
 			trigger: function() {
 				if ( rcheckableType.test( this.type ) &&
-					this.click && jQuery.nodeName( this, "input" ) ) {
+					this.click && nodeName( this, "input" ) ) {
 
 					this.click();
 					return false;
@@ -5352,7 +5355,7 @@ jQuery.event = {
 
 			// For cross-browser consistency, don't fire native .click() on links
 			_default: function( event ) {
-				return jQuery.nodeName( event.target, "a" );
+				return nodeName( event.target, "a" );
 			}
 		},
 
@@ -5631,8 +5634,8 @@ var
 
 // Prefer a tbody over its parent table for containing new rows
 function manipulationTarget( elem, content ) {
-	if ( jQuery.nodeName( elem, "table" ) &&
-		jQuery.nodeName( content.nodeType !== 11 ? content : content.firstChild, "tr" ) ) {
+	if ( nodeName( elem, "table" ) &&
+		nodeName( content.nodeType !== 11 ? content : content.firstChild, "tr" ) ) {
 
 		return jQuery( ">tbody", elem )[ 0 ] || elem;
 	}
@@ -7536,7 +7539,7 @@ jQuery.extend( {
 		type: {
 			set: function( elem, value ) {
 				if ( !support.radioValue && value === "radio" &&
-					jQuery.nodeName( elem, "input" ) ) {
+					nodeName( elem, "input" ) ) {
 					var val = elem.value;
 					elem.setAttribute( "type", value );
 					if ( val ) {
@@ -8026,7 +8029,7 @@ jQuery.extend( {
 							// Don't return options that are disabled or in a disabled optgroup
 							!option.disabled &&
 							( !option.parentNode.disabled ||
-								!jQuery.nodeName( option.parentNode, "optgroup" ) ) ) {
+								!nodeName( option.parentNode, "optgroup" ) ) ) {
 
 						// Get the specific value for the option
 						value = jQuery( option ).val();
@@ -10010,7 +10013,7 @@ jQuery.fn.extend( {
 
 			// Get correct offsets
 			offset = this.offset();
-			if ( !jQuery.nodeName( offsetParent[ 0 ], "html" ) ) {
+			if ( !nodeName( offsetParent[ 0 ], "html" ) ) {
 				parentOffset = offsetParent.offset();
 			}
 
@@ -10177,7 +10180,8 @@ jQuery.fn.extend( {
 		} else {
 			jQuery.ready( true );
 		}
-	}
+},
+	nodeName: nodeName
 } );
 
 jQuery.isArray = Array.isArray;

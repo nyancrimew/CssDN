@@ -3615,7 +3615,7 @@
      * order of `reduce`'s iterator function is *(acc, value)*.
      *
      * Note: `R.reduceRight` does not skip deleted or unassigned indices (sparse
-     * arrays), unlike the native `Array.prototype.reduce` method. For more details
+     * arrays), unlike the native `Array.prototype.reduceRight` method. For more details
      * on this behavior, see:
      * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight#Description
      *
@@ -8010,7 +8010,7 @@
      * @param {Array} list1 The first list.
      * @param {Array} list2 The second list.
      * @return {Array} The elements in `list1` that are not in `list2`.
-     * @see R.differenceWith, R.symmetricDifference, R.symmetricDifferenceWith
+     * @see R.differenceWith, R.symmetricDifference, R.symmetricDifferenceWith, R.without
      * @example
      *
      *      R.difference([1,2,3,4], [7,6,5,4,3]); //=> [1,2]
@@ -8197,7 +8197,7 @@
      * @param {Array} list1 The values to be removed from `list2`.
      * @param {Array} list2 The array to remove values from.
      * @return {Array} The new array without values in `list1`.
-     * @see R.transduce
+     * @see R.transduce, R.difference
      * @example
      *
      *      R.without([1, 2], [1, 2, 1, 3, 4]); //=> [3, 4]
