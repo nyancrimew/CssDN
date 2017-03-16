@@ -1,5 +1,5 @@
 /*!
- * jQuery JavaScript Library v3.1.2-pre
+ * jQuery JavaScript Library v3.2.0-pre
  * https://jquery.com/
  *
  * Includes Sizzle.js
@@ -9,7 +9,7 @@
  * Released under the MIT license
  * https://jquery.org/license
  *
- * Date: 2017-03-13T19:49Z
+ * Date: 2017-03-16T19:50Z
  */
 ( function( global, factory ) {
 
@@ -88,7 +88,7 @@ var support = {};
 
 
 var
-	version = "3.1.2-pre",
+	version = "3.2.0-pre",
 
 	// Define a local copy of jQuery
 	jQuery = function( selector, context ) {
