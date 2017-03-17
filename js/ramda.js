@@ -2703,7 +2703,7 @@
      * @param {Object} l
      * @param {Object} r
      * @return {Object}
-     * @see R.mergeWith, R.mergeWithKey
+     * @see R.mergeDeepRight, R.mergeWith, R.mergeWithKey
      * @example
      *
      *      R.merge({ 'name': 'fred', 'age': 10 }, { 'age': 40 });
@@ -2742,9 +2742,7 @@
      * Creates a new object with the own properties of the two provided objects. If
      * a key exists in both objects, the provided function is applied to the key
      * and the values associated with the key in each object, with the result being
-     * used as the value associated with the key in the returned object. The key
-     * will be excluded from the returned object if the resulting value is
-     * `undefined`.
+     * used as the value associated with the key in the returned object.
      *
      * @func
      * @memberOf R
@@ -2755,7 +2753,7 @@
      * @param {Object} l
      * @param {Object} r
      * @return {Object}
-     * @see R.merge, R.mergeWith
+     * @see R.mergeDeepWithKey, R.merge, R.mergeWith
      * @example
      *
      *      let concatValues = (k, l, r) => k == 'values' ? R.concat(l, r) : r
@@ -3082,6 +3080,33 @@
         return curryN(arity, function () {
             return nth(n, arguments);
         });
+    });
+
+    /**
+     * `o` is a curried composition function that returns a unary function.
+     * Like `compose`, `o` performs right-to-left function composition. Unlike `compose`,
+     * the rightmost function passed to `o` will be invoked with only one argument.
+     *
+     * @func
+     * @memberOf R
+     * @category Function
+     * @sig (b -> c) -> (a -> b) -> a -> c
+     * @param {Function} f
+     * @param {Function} g
+     * @return {Function}
+     * @see R.compose, R.pipe
+     * @example
+     *
+     *      var classyGreeting = name => "The name's " + name.last + ", " + name.first + " " + lastName
+     *      var yellGreeting = R.o(R.toUpper, classyGreeting);
+     *      yellGreeting({first: 'James', last: 'Bond'}); //=> "THE NAME'S BOND, JAMES BOND"
+     *
+     *      R.o(R.multiply(10), R.add(10))(-4) //=> 60
+     *
+     * @symb R.o(f, g, x) = f(g(x))
+     */
+    var o = _curry3(function o(f, g, x) {
+        return f(g(x));
     });
 
     /**
@@ -6215,11 +6240,47 @@
     });
 
     /**
+     * Creates a new object with the own properties of the two provided objects.
+     * If a key exists in both objects:
+     * - and both associated values are also objects then the values will be
+     *   recursively merged.
+     * - otherwise the provided function is applied to the key and associated values
+     *   using the resulting value as the new value associated with the key.
+     * If a key only exists in one object, the value will be associated with the key
+     * of the resulting object.
+     *
+     * @func
+     * @memberOf R
+     * @category Object
+     * @sig (String -> a -> a -> a) -> {a} -> {a} -> {a}
+     * @param {Function} fn
+     * @param {Object} lObj
+     * @param {Object} rObj
+     * @return {Object}
+     * @see R.mergeWithKey, R.mergeDeep, R.mergeDeepWith
+     * @example
+     *
+     *      let concatValues = (k, l, r) => k == 'values' ? R.concat(l, r) : r
+     *      R.mergeDeepWithKey(concatValues,
+     *                         { a: true, c: { thing: 'foo', values: [10, 20] }},
+     *                         { b: true, c: { thing: 'bar', values: [15, 35] }});
+     *      //=> { a: true, b: true, c: { thing: 'bar', values: [10, 20, 15, 35] }}
+     */
+    var mergeDeepWithKey = _curry3(function mergeDeepWithKey(fn, lObj, rObj) {
+        return mergeWithKey(function (k, lVal, rVal) {
+            if (_isObject(lVal) && _isObject(rVal)) {
+                return mergeDeepWithKey(fn, lVal, rVal);
+            } else {
+                return fn(k, lVal, rVal);
+            }
+        }, lObj, rObj);
+    });
+
+    /**
      * Creates a new object with the own properties of the two provided objects. If
      * a key exists in both objects, the provided function is applied to the values
      * associated with the key in each object, with the result being used as the
-     * value associated with the key in the returned object. The key will be
-     * excluded from the returned object if the resulting value is `undefined`.
+     * value associated with the key in the returned object.
      *
      * @func
      * @memberOf R
@@ -6230,7 +6291,7 @@
      * @param {Object} l
      * @param {Object} r
      * @return {Object}
-     * @see R.merge, R.mergeWithKey
+     * @see R.mergeDeepWith, R.merge, R.mergeWithKey
      * @example
      *
      *      R.mergeWith(R.concat,
@@ -7600,6 +7661,90 @@
         return mean(Array.prototype.slice.call(list, 0).sort(function (a, b) {
             return a < b ? -1 : a > b ? 1 : 0;
         }).slice(idx, idx + width));
+    });
+
+    /**
+     * Creates a new object with the own properties of the first object merged with
+     * the own properties of the second object. If a key exists in both objects:
+     * - and both values are objects, the two values will be recursively merged
+     * - otherwise the value from the first object will be used.
+     *
+     * @func
+     * @memberOf R
+     * @category Object
+     * @sig {a} -> {a} -> {a}
+     * @param {Object} lObj
+     * @param {Object} rObj
+     * @return {Object}
+     * @see R.merge, R.mergeDeepRight, R.mergeDeepWith, R.mergeDeepWithKey
+     * @example
+     *
+     *      R.mergeDeepLeft({ name: 'fred', age: 10, contact: { email: 'moo@example.com' }},
+     *                      { age: 40, contact: { email: 'baa@example.com' }});
+     *      //=> { name: 'fred', age: 10, contact: { email: 'moo@example.com' }}
+     */
+    var mergeDeepLeft = _curry2(function mergeDeepLeft(lObj, rObj) {
+        return mergeDeepWithKey(function (k, lVal, rVal) {
+            return lVal;
+        }, lObj, rObj);
+    });
+
+    /**
+     * Creates a new object with the own properties of the first object merged with
+     * the own properties of the second object. If a key exists in both objects:
+     * - and both values are objects, the two values will be recursively merged
+     * - otherwise the value from the second object will be used.
+     *
+     * @func
+     * @memberOf R
+     * @category Object
+     * @sig {a} -> {a} -> {a}
+     * @param {Object} lObj
+     * @param {Object} rObj
+     * @return {Object}
+     * @see R.merge, R.mergeDeepLeft, R.mergeDeepWith, R.mergeDeepWithKey
+     * @example
+     *
+     *      R.mergeDeepRight({ name: 'fred', age: 10, contact: { email: 'moo@example.com' }},
+     *                       { age: 40, contact: { email: 'baa@example.com' }});
+     *      //=> { name: 'fred', age: 40, contact: { email: 'baa@example.com' }}
+     */
+    var mergeDeepRight = _curry2(function mergeDeepRight(lObj, rObj) {
+        return mergeDeepWithKey(function (k, lVal, rVal) {
+            return rVal;
+        }, lObj, rObj);
+    });
+
+    /**
+     * Creates a new object with the own properties of the two provided objects.
+     * If a key exists in both objects:
+     * - and both associated values are also objects then the values will be
+     *   recursively merged.
+     * - otherwise the provided function is applied to associated values using the
+     *   resulting value as the new value associated with the key.
+     * If a key only exists in one object, the value will be associated with the key
+     * of the resulting object.
+     *
+     * @func
+     * @memberOf R
+     * @category Object
+     * @sig (a -> a -> a) -> {a} -> {a} -> {a}
+     * @param {Function} fn
+     * @param {Object} lObj
+     * @param {Object} rObj
+     * @return {Object}
+     * @see R.mergeWith, R.mergeDeep, R.mergeDeepWithKey
+     * @example
+     *
+     *      R.mergeDeepWith(R.concat,
+     *                      { a: true, c: { values: [10, 20] }},
+     *                      { b: true, c: { values: [15, 35] }});
+     *      //=> { a: true, b: true, c: { values: [10, 20, 15, 35] }}
+     */
+    var mergeDeepWith = _curry3(function mergeDeepWith(fn, lObj, rObj) {
+        return mergeDeepWithKey(function (k, lVal, rVal) {
+            return fn(lVal, rVal);
+        }, lObj, rObj);
     });
 
     /**
@@ -8981,6 +9126,10 @@
         memoize: memoize,
         merge: merge,
         mergeAll: mergeAll,
+        mergeDeepLeft: mergeDeepLeft,
+        mergeDeepRight: mergeDeepRight,
+        mergeDeepWith: mergeDeepWith,
+        mergeDeepWithKey: mergeDeepWithKey,
         mergeWith: mergeWith,
         mergeWithKey: mergeWithKey,
         min: min,
@@ -8993,6 +9142,7 @@
         not: not,
         nth: nth,
         nthArg: nthArg,
+        o: o,
         objOf: objOf,
         of: of,
         omit: omit,
