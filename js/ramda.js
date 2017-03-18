@@ -2691,6 +2691,45 @@
     });
 
     /**
+     * A customisable version of R.memoize. memoizeWith takes an additional
+     * function that will be applied to a given argument set and used to create
+     * the cache key under which the results of the function to be memoized will
+     * be stored. Care must be taken when implementing key generation to avoid
+     * clashes that may overwrite previous entries erroneously.
+     *
+     *
+     * @func
+     * @memberOf R
+     * @category Function
+     * @sig (*... -> String) -> (*... -> a) -> (*... -> a)
+     * @param {Function} fn The function to generate the cache key.
+     * @param {Function} fn The function to memoize.
+     * @return {Function} Memoized version of `fn`.
+     * @see R.memoize
+     * @example
+     *
+     *      let count = 0;
+     *      const factorial = R.memoizeWith(R.identity, n => {
+     *        count += 1;
+     *        return R.product(R.range(1, n + 1));
+     *      });
+     *      factorial(5); //=> 120
+     *      factorial(5); //=> 120
+     *      factorial(5); //=> 120
+     *      count; //=> 1
+     */
+    var memoizeWith = _curry2(function memoizeWith(mFn, fn) {
+        var cache = {};
+        return _arity(fn.length, function () {
+            var key = mFn.apply(this, arguments);
+            if (!_has(key, cache)) {
+                cache[key] = fn.apply(this, arguments);
+            }
+            return cache[key];
+        });
+    });
+
+    /**
      * Create a new object with the own properties of the first object merged with
      * the own properties of the second object. If a key exists in both objects,
      * the value from the second object will be used.
@@ -8748,8 +8787,8 @@
      * @return {Function} Memoized version of `fn`.
      * @example
      *
-     *      var count = 0;
-     *      var factorial = R.memoize(n => {
+     *      let count = 0;
+     *      const factorial = R.memoize(n => {
      *        count += 1;
      *        return R.product(R.range(1, n + 1));
      *      });
@@ -8758,16 +8797,7 @@
      *      factorial(5); //=> 120
      *      count; //=> 1
      */
-    var memoize = _curry1(function memoize(fn) {
-        var cache = {};
-        return _arity(fn.length, function () {
-            var key = toString(arguments);
-            if (!_has(key, cache)) {
-                cache[key] = fn.apply(this, arguments);
-            }
-            return cache[key];
-        });
-    });
+    var memoize = memoizeWith(toString);
 
     /**
      * Splits a string into an array of strings based on the given
@@ -9124,6 +9154,7 @@
         mean: mean,
         median: median,
         memoize: memoize,
+        memoizeWith: memoizeWith,
         merge: merge,
         mergeAll: mergeAll,
         mergeDeepLeft: mergeDeepLeft,
