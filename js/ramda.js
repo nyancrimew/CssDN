@@ -4521,6 +4521,7 @@
      *      R.type(null); //=> "Null"
      *      R.type([]); //=> "Array"
      *      R.type(/[A-z]/); //=> "RegExp"
+     *      R.type(() => {}); //=> "Function"
      */
     var type = _curry1(function type(val) {
         return val === null ? 'Null' : val === undefined ? 'Undefined' : Object.prototype.toString.call(val).slice(8, -1);
