@@ -6692,6 +6692,28 @@
     });
 
     /**
+     * Checks if a list starts with the provided values
+     *
+     * @func
+     * @memberOf R
+     * @category List
+     * @sig [a] -> Boolean
+     * @sig String -> Boolean
+     * @param {*} prefix
+     * @param {*} list
+     * @return {Boolean}
+     * @example
+     *
+     *      R.startsWith('a', 'abc')                //=> true
+     *      R.startsWith('b', 'abc')                //=> false
+     *      R.startsWith(['a'], ['a', 'b', 'c'])    //=> true
+     *      R.startsWith(['b'], ['a', 'b', 'c'])    //=> false
+     */
+    var startsWith = _curry2(function (prefix, list) {
+        return equals(take(prefix.length, list), prefix);
+    });
+
+    /**
      * Adds together all the elements of a list.
      *
      * @func
@@ -7355,6 +7377,28 @@
         }
         return result;
     }));
+
+    /**
+     * Checks if a list ends with the provided values
+     *
+     * @func
+     * @memberOf R
+     * @category List
+     * @sig [a] -> Boolean
+     * @sig String -> Boolean
+     * @param {*} suffix
+     * @param {*} list
+     * @return {Boolean}
+     * @example
+     *
+     *      R.endsWith('c', 'abc')                //=> true
+     *      R.endsWith('b', 'abc')                //=> false
+     *      R.endsWith(['c'], ['a', 'b', 'c'])    //=> true
+     *      R.endsWith(['b'], ['a', 'b', 'c'])    //=> false
+     */
+    var endsWith = _curry2(function (suffix, list) {
+        return equals(takeLast(suffix.length, list), suffix);
+    });
 
     /**
      * Takes a function and two values in its domain and returns `true` if the
@@ -9086,6 +9130,7 @@
         dropWhile: dropWhile,
         either: either,
         empty: empty,
+        endsWith: endsWith,
         eqBy: eqBy,
         eqProps: eqProps,
         equals: equals,
@@ -9226,6 +9271,7 @@
         splitAt: splitAt,
         splitEvery: splitEvery,
         splitWhen: splitWhen,
+        startsWith: startsWith,
         subtract: subtract,
         sum: sum,
         symmetricDifference: symmetricDifference,
