@@ -1579,7 +1579,7 @@
      */
     // else
     var empty = _curry1(function empty(x) {
-        return x != null && typeof x.empty === 'function' ? x.empty() : x != null && x.constructor != null && typeof x.constructor.empty === 'function' ? x.constructor.empty() : _isArray(x) ? [] : _isString(x) ? '' : _isObject(x) ? {} : _isArguments(x) ? function () {
+        return x != null && typeof x['fantasy-land/empty'] === 'function' ? x['fantasy-land/empty']() : x != null && x.constructor != null && typeof x.constructor['fantasy-land/empty'] === 'function' ? x.constructor['fantasy-land/empty']() : x != null && typeof x.empty === 'function' ? x.empty() : x != null && x.constructor != null && typeof x.constructor.empty === 'function' ? x.constructor.empty() : _isArray(x) ? [] : _isString(x) ? '' : _isObject(x) ? {} : _isArguments(x) ? function () {
             return arguments;
         }() : // else
         void 0;
@@ -4903,7 +4903,7 @@
         var Const = function (x) {
             return {
                 value: x,
-                map: function () {
+                'fantasy-land/map': function () {
                     return this;
                 }
             };
@@ -5224,6 +5224,9 @@
         if (a == null || b == null) {
             return false;
         }
+        if (typeof a['fantasy-land/equals'] === 'function' || typeof b['fantasy-land/equals'] === 'function') {
+            return typeof a['fantasy-land/equals'] === 'function' && a['fantasy-land/equals'](b) && typeof b['fantasy-land/equals'] === 'function' && b['fantasy-land/equals'](a);
+        }
         if (typeof a.equals === 'function' || typeof b.equals === 'function') {
             return typeof a.equals === 'function' && a.equals(b) && typeof b.equals === 'function' && b.equals(a);
         }
@@ -5358,8 +5361,8 @@
             }
             return xf['@@transducer/result'](acc);
         }
-        function _methodReduce(xf, acc, obj) {
-            return xf['@@transducer/result'](obj.reduce(bind(xf['@@transducer/step'], xf), acc));
+        function _methodReduce(xf, acc, obj, methodName) {
+            return xf['@@transducer/result'](obj[methodName](bind(xf['@@transducer/step'], xf), acc));
         }
         var symIterator = typeof Symbol !== 'undefined' ? Symbol.iterator : '@@iterator';
         return function _reduce(fn, acc, list) {
@@ -5369,8 +5372,11 @@
             if (isArrayLike(list)) {
                 return _arrayReduce(fn, acc, list);
             }
+            if (typeof list['fantasy-land/reduce'] === 'function') {
+                return _methodReduce(fn, acc, list, 'fantasy-land/reduce');
+            }
             if (typeof list.reduce === 'function') {
-                return _methodReduce(fn, acc, list);
+                return _methodReduce(fn, acc, list, 'reduce');
             }
             if (list[symIterator] != null) {
                 return _iterableReduce(fn, acc, list[symIterator]());
@@ -6234,7 +6240,10 @@
      * @symb R.map(f, { x: a, y: b }) = { x: f(a), y: f(b) }
      * @symb R.map(f, functor_o) = functor_o.map(f)
      */
-    var map = _curry2(_dispatchable(['map'], _xmap, function map(fn, functor) {
+    var map = _curry2(_dispatchable([
+        'fantasy-land/map',
+        'map'
+    ], _xmap, function map(fn, functor) {
         switch (Object.prototype.toString.call(functor)) {
         case '[object Function]':
             return curryN(functor.length, function () {
@@ -7048,9 +7057,9 @@
      * @category Function
      * @sig [a -> b] -> [a] -> [b]
      * @sig Apply f => f (a -> b) -> f a -> f b
-     * @param {Array} fns An array of functions
-     * @param {Array} vs An array of values
-     * @return {Array} An array of results of applying each of `fns` to all of `vs` in turn.
+     * @param {*} applyF
+     * @param {*} applyX
+     * @return {*}
      * @example
      *
      *      R.ap([R.multiply(2), R.add(3)], [1,2,3]); //=> [2, 4, 6, 4, 5, 6]
@@ -7058,13 +7067,13 @@
      * @symb R.ap([f, g], [a, b]) = [f(a), f(b), g(a), g(b)]
      */
     // else
-    var ap = _curry2(function ap(applicative, fn) {
-        return typeof applicative.ap === 'function' ? applicative.ap(fn) : typeof applicative === 'function' ? function (x) {
-            return applicative(x)(fn(x));
+    var ap = _curry2(function ap(applyF, applyX) {
+        return typeof applyX['fantasy-land/ap'] === 'function' ? applyX['fantasy-land/ap'](applyF) : typeof applyF.ap === 'function' ? applyF.ap(applyX) : typeof applyF === 'function' ? function (x) {
+            return applyF(x)(applyX(x));
         } : // else
         _reduce(function (acc, f) {
-            return _concat(acc, map(f, fn));
-        }, [], applicative);
+            return _concat(acc, map(f, applyX));
+        }, [], applyF);
     });
 
     /**
@@ -7161,7 +7170,10 @@
      *
      *      R.chain(R.append, R.head)([1, 2, 3]); //=> [1, 2, 3, 1]
      */
-    var chain = _curry2(_dispatchable(['chain'], _xchain, function chain(fn, monad) {
+    var chain = _curry2(_dispatchable([
+        'fantasy-land/chain',
+        'chain'
+    ], _xchain, function chain(fn, monad) {
         if (typeof monad === 'function') {
             return function (x) {
                 return fn(monad(x))(x);
@@ -7993,7 +8005,7 @@
      *      R.traverse(Maybe.of, safeDiv(10), [2, 0, 5]); //=> Nothing
      */
     var traverse = _curry3(function traverse(of, f, traversable) {
-        return sequence(of, map(f, traversable));
+        return typeof traversable['fantasy-land/traverse'] === 'function' ? traversable['fantasy-land/traverse'](f, of) : sequence(of, map(f, traversable));
     });
 
     /**
@@ -8720,13 +8732,25 @@
      *      R.concat([], []); //=> []
      */
     var concat = _curry2(function concat(a, b) {
-        if (a == null || !_isFunction(a.concat)) {
-            throw new TypeError(toString(a) + ' does not have a method named "concat"');
-        }
-        if (_isArray(a) && !_isArray(b)) {
+        if (_isArray(a)) {
+            if (_isArray(b)) {
+                return a.concat(b);
+            }
             throw new TypeError(toString(b) + ' is not an array');
         }
-        return a.concat(b);
+        if (_isString(a)) {
+            if (_isString(b)) {
+                return a + b;
+            }
+            throw new TypeError(toString(b) + ' is not a string');
+        }
+        if (a != null && _isFunction(a['fantasy-land/concat'])) {
+            return a['fantasy-land/concat'](b);
+        }
+        if (a != null && _isFunction(a.concat)) {
+            return a.concat(b);
+        }
+        throw new TypeError(toString(a) + ' does not have a method named "concat" or "fantasy-land/concat"');
     });
 
     /**
