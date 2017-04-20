@@ -15,7 +15,7 @@
 
  */
 /* global window, document, define, jQuery, setInterval, clearInterval */
-(function(factory) {
+;(function(factory) {
     'use strict';
     if (typeof define === 'function' && define.amd) {
         define(['jquery'], factory);
@@ -1407,7 +1407,7 @@
         $('[draggable!=true]', _.$slideTrack).on('dragstart', _.preventDefault);
 
         $(window).on('load.slick.slick-' + _.instanceUid, _.setPosition);
-        $(document).ready(_.setPosition);
+        $(_.setPosition);
 
     };
 
