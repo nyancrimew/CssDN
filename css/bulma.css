@@ -2051,6 +2051,7 @@ input[type="submit"].button {
 .select {
   display: inline-block;
   height: 2.25em;
+  max-width: 100%;
   position: relative;
   vertical-align: top;
 }
@@ -2103,6 +2104,7 @@ input[type="submit"].button {
   cursor: pointer;
   display: block;
   font-size: 1em;
+  max-width: 100%;
   outline: none;
   padding-right: 2.5em;
 }
