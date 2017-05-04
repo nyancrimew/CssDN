@@ -1192,6 +1192,7 @@
      * @param {*} a The first item to be compared.
      * @param {*} b The second item to be compared.
      * @return {Number} `-1` if fn(a) < fn(b), `1` if fn(b) < fn(a), otherwise `0`
+     * @see R.descend
      * @example
      *
      *      var byAge = R.ascend(R.prop('age'));
@@ -1421,6 +1422,7 @@
      * @param {*} a The first item to be compared.
      * @param {*} b The second item to be compared.
      * @return {Number} `-1` if fn(a) > fn(b), `1` if fn(b) > fn(a), otherwise `0`
+     * @see R.ascend
      * @example
      *
      *      var byAge = R.descend(R.prop('age'));
@@ -2934,6 +2936,7 @@
      * @param {Function} fn The function to wrap.
      * @return {Function} A new function wrapping `fn`. The new function is guaranteed to be of
      *         arity `n`.
+     * @see R.binary, R.unary
      * @example
      *
      *      var takesTwoArgs = (a, b) => [a, b];
@@ -4569,6 +4572,7 @@
      * @param {Function} fn The function to wrap.
      * @return {Function} A new function wrapping `fn`. The new function is guaranteed to be of
      *         arity 1.
+     * @see R.binary, R.nAry
      * @example
      *
      *      var takesTwoArgs = function(a, b) {
@@ -5553,6 +5557,7 @@
      * @param {Function} fn The function to wrap.
      * @return {Function} A new function wrapping `fn`. The new function is guaranteed to be of
      *         arity 2.
+     * @see R.nAry, R.unary
      * @example
      *
      *      var takesThreeArgs = function(a, b, c) {
